@@ -30,7 +30,7 @@ const path=require('path')
 
 
 // creating routes
-app.use("/home", (req, res) => {
+app.use("/", (req, res) => {
   res.send(`Welcome to SUBAY`);
   console.log("home page opened");
 });
@@ -43,7 +43,7 @@ app.use("/product",productRoutes);
 app.use("/uploads",express.static('uploads'));
 
 // giving a port
-const port = 1310;
+const port = process.env.port||1310;
 // creating server
 app.listen(port, (req, res) => {
   console.log("running server sucessfully at ", port);
