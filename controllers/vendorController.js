@@ -2,6 +2,7 @@ const Vendor = require('../models/Vendor');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
+const path=require('path');
 dotenv.config();
 
 // Correct secret key usage

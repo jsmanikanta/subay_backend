@@ -1,50 +1,68 @@
-// impoting express
+// Importing Express
 const express = require("express");
 const dotenv = require("dotenv");
 
-// importing dotenv for mongodb
+// Importing dotenv for MongoDB
 dotenv.config();
 const app = express();
 
+// Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// importing body parser
+// Importing body-parser
 const bodyparser = require("body-parser");
-//importing mongodb
-const mongodb = require("mongoose");
-mongodb
-  .connect(process.env.mongo_url)
+
+// Importing mongoose for MongoDB
+const mongoose = require("mongoose");
+
+// Connecting to MongoDB
+mongoose
+  .connect(process.env.MONGO_URL)
   .then(() => {
-    console.log("database connected sucessfully");
+    console.log("Database connected successfully");
   })
   .catch((err) => {
-    console.log(err);
+    console.error("Database connection error:", err);
   });
 
-const vendorRoutes = require('./routes/vendorRoute');
-const firmRoutes=require('./routes/frimRoutes');
-const productRoutes=require('./routes/productRoute');
-const cors=require('cors');
-const path=require('path')
+// Importing CORS and Path modules
+const cors = require("cors");
+const path = require("path");
 
+// Importing routes
+const vendorRoutes = require("./routes/vendorRoute");
+const firmRoutes = require("./routes/frimRoutes");
+const productRoutes = require("./routes/productRoute");
 
-// creating routes
-app.use("/", (req, res) => {
-  res.send(`Welcome to SUBAY`);
-  console.log("home page opened");
-});
+// Applying CORS middleware before defining routes
+app.use(cors());
+
+// Applying body-parser middleware
 app.use(bodyparser.json());
-// using vendor route
-app.use("/vendor", vendorRoutes);
-// using firm route
-app.use("/firm",firmRoutes)
-app.use("/product",productRoutes);
-app.use("/uploads",express.static('uploads'));
 
-// giving a port
-const port = process.env.port||1310;
-// creating server
-app.listen(port, (req, res) => {
-  console.log("running server sucessfully at ", port);
+// Creating home route
+app.get("/home", (req, res) => {  // Removed extra space in "/home "
+  res.send("Welcome to SUBAY");
+  console.log("Home page opened");
+});
+
+// Using vendor route
+app.use("/vendor", vendorRoutes);
+
+// Using firm route
+app.use("/firm", firmRoutes);
+
+// Using product route
+app.use("/product", productRoutes);
+
+// Serving static uploads folder
+app.use("/uploads", express.static("uploads"));
+
+// Defining the port (fixed variable name)
+const port = process.env.PORT || 1310;
+
+// Creating server
+app.listen(port, () => {
+  console.log(`Running server successfully at port ${port}`);
 });

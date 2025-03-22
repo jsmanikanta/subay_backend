@@ -4,10 +4,10 @@
   "description": "A food delivery app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index",
-    "start": "node start"
-  },
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "dev": "nodemon index",
+  "start": "node index"
+},
   "author": "j s manikanta",
   "license": "ISC",
   "dependencies": {
