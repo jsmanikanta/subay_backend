@@ -50,22 +50,25 @@ const getProductByFirm = async (req, res) => {
         if (!firmId) {
             return res.status(400).json({ error: "firmId is missing in the request URL" });
         }
+
         const firm = await Firm.findById(firmId);
         console.log("Firm found:", firm);
-        const resturantname=firm.firmName;
 
         if (!firm) {
             return res.status(404).json({ error: "No firm found" });
         }
 
+        const restaurantName = firm.firmName; // Moved here after firm existence check
+
         const products = await Product.find({ firm: firmId });
 
-        res.status(200).json({ products,resturantname });
+        res.status(200).json({ products, restaurantName });
     } catch (error) {
         console.error("Error in getProductByFirm:", error);
         res.status(500).json({ error: "Internal server error", details: error.message });
     }
 };
+
 
 const deleteProductById = async(req, res) => {
     try {
