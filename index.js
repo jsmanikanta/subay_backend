@@ -17,12 +17,12 @@ require("dotenv").config();
 
 // Check if MongoDB URL exists
 if (!process.env.mongo_url) {
-  console.error("MONGO_URL is missing. Check your environment variables.");
+  console.error("mongo_url is missing. Check your environment variables.");
   process.exit(1);
 }
 
 mongoose
-  .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.mongo_url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log(" Database connected successfully"))
   .catch((err) => console.error("Database connection error:", err));
 
