@@ -22,7 +22,7 @@ if (!process.env.mongo_url) {
 }
 
 mongoose
-  .connect(process.env.mongo_url, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.mongo_url,)
   .then(() => console.log(" Database connected successfully"))
   .catch((err) => console.error("Database connection error:", err));
 
