@@ -8,7 +8,7 @@ router.post('/addfirm',verifyToken,firmController.addFirm);
 
 router.get('/uploads/:imagename',(req,res)=>{
     const imagename=req.params.imagename;
-    res.headerSent('Content-Type',image/jpeg);
+    res.setHeader("Content-Type", "image/jpeg");
     res.sendFile(path.join(__dirname,'..','uploads',imagename))
 });
 module.exports=router;

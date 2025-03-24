@@ -1,4 +1,4 @@
-const Firm = require('../models/firm');
+const Firm = require('../models/Firm');
 const Product=require('../models/product');
 const multer=require('multer');
 const path = require('path');
@@ -21,6 +21,7 @@ const addProduct =async(req,res)=>{
 
         const firmId=req.params.firmId;
         const firm=await Firm.findById(firmId);
+        res.status(200).json({message:"product added"});
         console.log(firmId);
         
 

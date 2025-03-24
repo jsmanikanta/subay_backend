@@ -73,18 +73,28 @@ const getAllVendors = async (req, res) => {
 };
 // get data of each vendor
 const getVendorById = async (req, res) => {
-  const vendorId = req.params.apple;
+  const vendorId = req.params.id; 
+  console.log("Extracted vendorId:", vendorId);
 
   try {
     const vendor = await Vendor.findById(vendorId).populate("firm");
     if (!vendor) {
       return res.status(404).json({ error: "Vendor not found" });
     }
-    const vendorFirmId = vendor.firm[0]._id;
-    res.status(200).json({vendorFirmId});
+
+    // Ensure firm exists and is either an array or an object
+    const vendorFirmId = Array.isArray(vendor.firm)
+      ? vendor.firm[0]?._id
+      : vendor.firm?._id;
+
+    if (!vendorFirmId) {
+      return res.status(404).json({ error: "Firm not found for this vendor" });
+    }
+
+    res.status(200).json({ vendorFirmId });
     console.log(vendorFirmId);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
