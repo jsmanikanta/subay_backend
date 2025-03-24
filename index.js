@@ -16,7 +16,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 // Check if MongoDB URL exists
-if (!process.env.MONGO_URL) {
+if (!process.env.mongo_url) {
   console.error("MONGO_URL is missing. Check your environment variables.");
   process.exit(1);
 }
