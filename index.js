@@ -1,9 +1,5 @@
 // Importing Express
 const express = require("express");
-const dotenv = require("dotenv");
-
-// Importing dotenv for MongoDB
-dotenv.config();
 const app = express();
 
 // Middleware to parse JSON and URL-encoded data
@@ -17,14 +13,20 @@ const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 
 // Connecting to MongoDB
+require("dotenv").config();
+const mongoose = require("mongoose");
+
+// Check if MongoDB URL exists
+if (!process.env.MONGO_URL) {
+  console.error("MONGO_URL is missing. Check your environment variables.");
+  process.exit(1);
+}
+
 mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => {
-    console.log("Database connected successfully");
-  })
-  .catch((err) => {
-    console.error("Database connection error:", err);
-  });
+  .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log(" Database connected successfully"))
+  .catch((err) => console.error("Database connection error:", err));
+
 
 // Importing CORS and Path modules
 const cors = require("cors");
