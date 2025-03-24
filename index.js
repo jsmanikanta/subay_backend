@@ -14,7 +14,6 @@ const mongoose = require("mongoose");
 
 // Connecting to MongoDB
 require("dotenv").config();
-const mongoose = require("mongoose");
 
 // Check if MongoDB URL exists
 if (!process.env.MONGO_URL) {
